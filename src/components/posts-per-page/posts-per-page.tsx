@@ -7,10 +7,10 @@ const PostsPerPage = ({value, handleChange}: PostsPerPageProps) => {
   };
 
   return (
-    <label>
+    <label htmlFor="ppp">
       Posts per page: 
-      <select value={`${value}`} onChange={handleChangeValue}>
-        <option value="4">5</option>
+      <select value={`${value}`} id="ppp" onChange={handleChangeValue}>
+        <option value="4">4</option>
         <option value="10">10</option>
         <option value="20">20</option>
       </select>

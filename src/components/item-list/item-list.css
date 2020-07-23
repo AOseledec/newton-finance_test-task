@@ -1,6 +1,5 @@
-.list-container {
-  display: grid;
-  justify-content: center;
-  grid-template-columns: 300px 300px;
-  gap: 2rem;
+.card-columns {
+  margin: 0 auto 2rem;
+  width: 600px;
+  column-count: 2;
 }

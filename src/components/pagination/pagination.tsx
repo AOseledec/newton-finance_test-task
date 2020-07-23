@@ -4,10 +4,10 @@ import './pagination.css';
 
 const Pagination = ({nav, onClickPagination}: PaginationProps) => {
   return (
-    <div className='pagination'>
-      <button onClick={() => onClickPagination(nav.prev_page)}>{'< prev'}</button>
+    <div className='my-pagination'>
+      <button className="btn btn-outline-primary btn-sm" onClick={() => onClickPagination(nav.prev_page)}>&laquo;</button>
       {` page ${nav.cur_page} of ${nav.pages} `}
-      <button onClick={() => onClickPagination(nav.next_page)}>{'next >'}</button>
+      <button className="btn btn-outline-primary btn-sm" onClick={() => onClickPagination(nav.next_page)}>&raquo;</button >
     </div>
   );
 };

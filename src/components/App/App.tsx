@@ -48,10 +48,12 @@ function App() {
   });
 
   return (
-    <main>
-      <header className='header'>
-        <h1 className='app__title'>Posts:</h1>
-        <PostsPerPage value={postPerPage} handleChange={handlePostPerPage}/>
+    <main className='main'>
+      <header className='navbar navbar-expand-lg navbar-dark bg-primary'>
+        <div className="header-container">
+          <h1 className='navbar-brand'>Posts:</h1>
+          <PostsPerPage value={postPerPage} handleChange={handlePostPerPage}/>
+        </div>
       </header>
       <ItemList data={cutPosts}/>
       <Pagination nav={navigation} onClickPagination={onClickPagination}/>
