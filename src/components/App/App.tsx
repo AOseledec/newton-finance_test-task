@@ -10,42 +10,34 @@ import './app.css';
 
 function App() {
   const [posts, setPosts] = useState([]);
-  useEffect(() => {
-    service.getPosts()
-      .then(setPosts)
-  }, []);
-  
+  const [postPerPage, setPostPerPage] = useState(10);
   const [cur_page, setCurPage] = useState(1);
   const [next_page, setNextPage] = useState(2);
   const [prev_page, setPrevPage] = useState(1);
-  const [postPerPage, setPostPerPage] = useState(10)
 
-  const count: number = posts.length,
-        pages: number = Math.ceil(count/postPerPage),
-        navigation = {
-          cur_page,
-          next_page,
-          prev_page,
-          pages
-        };
+  const fetchPosts = (page: number, limit: number): void => {
+    service.getPosts(page, limit)
+      .then(data => data.json())
+      .then(setPosts)
+  };
+
+  useEffect(() => {
+    fetchPosts(1,postPerPage)
+  }, [postPerPage]);
 
   const onClickPagination = (page: number): void => {
+    if (page === 1) setPrevPage(page)
+    else setPrevPage(page - 1);
+    if (page === 100/postPerPage)  setNextPage(page)
+    else setNextPage(page + 1)
     setCurPage(page);
-    if (page - 1 !== 0) setPrevPage(page-1)
-    else setPrevPage(pages);
-    if (page !== pages) setNextPage(page + 1)
-    else setNextPage(1);
+
+    fetchPosts(page, postPerPage)
   };
 
   const handlePostPerPage = (value: number) => {
     setPostPerPage(value);
   };
-
-  const cutPosts = posts.filter((item, idx) => {
-    if (idx >= (cur_page-1) * postPerPage && idx < cur_page * postPerPage)
-    return item;
-    return false
-  });
 
   return (
     <main className='main'>
@@ -55,8 +47,8 @@ function App() {
           <PostsPerPage value={postPerPage} handleChange={handlePostPerPage}/>
         </div>
       </header>
-      <ItemList data={cutPosts}/>
-      <Pagination nav={navigation} onClickPagination={onClickPagination}/>
+      <Pagination next_page={next_page} prev_page={prev_page} onClickPagination={onClickPagination}/>
+      <ItemList data={posts}/>
     </main>
   );
 };

@@ -2,25 +2,24 @@ import React from 'react'
 
 import './pagination.css';
 
-const Pagination = ({nav, onClickPagination}: PaginationProps) => {
+const Pagination = ({next_page, prev_page, onClickPagination}: PaginationProps) => {
   return (
-    <div className='my-pagination'>
-      <button className="btn btn-outline-primary btn-sm" onClick={() => onClickPagination(nav.prev_page)}>&laquo;</button>
-      {` page ${nav.cur_page} of ${nav.pages} `}
-      <button className="btn btn-outline-primary btn-sm" onClick={() => onClickPagination(nav.next_page)}>&raquo;</button >
+    <div>
+      <ul className="pagination">
+        <li className="page-item" onClick={() => onClickPagination(prev_page)}>
+          <div className="page-link">&laquo;</div>
+        </li>
+        <li className="page-item" onClick={() => onClickPagination(next_page)}>
+          <div className="page-link">&raquo;</div>
+        </li>
+      </ul>
     </div>
   );
 };
 
-export interface navTypes {
-  prev_page: number,
-  cur_page: number,
-  next_page: number,
-  pages: number
-}
-
 export interface PaginationProps {
-  nav: navTypes,
+  next_page: number,
+  prev_page: number,
   onClickPagination: (arg: number) => void
 };
 

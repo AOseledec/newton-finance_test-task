@@ -3,15 +3,15 @@ class Service {
 
   getData = async (url: string) => {
     const response = await fetch(this._BASE_URL + url);
-    return await response.json();
+    return await response;
   };
 
-  getPosts = () => {
-    return this.getData('posts');
+  getPosts = (page: number, limit: number) => {
+    return this.getData(`posts?_page=${page}&_limit=${limit}`);
   };
 
   getComment = (id: number) => {
-    return this.getData(`comments/?postId=${id}`)
+    return this.getData(`comments/?postId=${id}`).then(data => data.json())
   };
 };
 
